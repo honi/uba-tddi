@@ -8,3 +8,4 @@ Ciencias de la Computación - FCEN - UBA\
 - Prácticas
 
   - [Práctica 1](prácticas/p01): Productos y sumas
+  - [Práctica 2](prácticas/p02): Naturales e igualdad
