@@ -41,8 +41,26 @@ suc a * b = b + a * b
 -- Sugerencia: demostrar lemas auxiliares que prueben que:
 --   a + zero = a
 --   a + suc b = suc (a + b)
+
+a+zero≡a : {a : ℕ} → a + zero ≡ a
+a+zero≡a {zero} = refl
+a+zero≡a {suc a} = cong suc (a+zero≡a {a})
+
+a+sb≡s[a+b] : {a b : ℕ} → a + suc b ≡ suc (a + b)
+a+sb≡s[a+b] {zero} {b} = refl
+a+sb≡s[a+b] {suc a} {b} = cong suc a+sb≡s[a+b]
+
 +-comm : {a b : ℕ} → a + b ≡ b + a
-+-comm = {!!}
++-comm {a} {zero} = a+zero≡a
+-- +-comm {a} {suc b} = trans (a+sb≡s[a+b] {a} {b}) (cong suc (+-comm {a} {b}))
++-comm {a} {suc b} =
+    begin
+        a + (suc b)
+    ≡⟨ a+sb≡s[a+b] ⟩
+        suc (a + b)
+    ≡⟨ cong suc (+-comm {a}) ⟩
+        (suc b) + a
+    ∎
 
 -- A.3) Demostrar que el producto distribuye sobre la suma (a izquierda).
 *-+-distrib-l : {a b c : ℕ} → (a + b) * c ≡ a * c + b * c
