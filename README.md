@@ -9,3 +9,8 @@ Ciencias de la Computación - FCEN - UBA\
 
   - [Práctica 1](prácticas/p01): Productos y sumas
   - [Práctica 2](prácticas/p02): Naturales e igualdad
+
+- Bibliografía
+
+  - [The HoTT Book](https://homotopytypetheory.org/book/)
+  - [Programming Language Foundations in Agda](https://plfa.inf.ed.ac.uk/22.08/)
