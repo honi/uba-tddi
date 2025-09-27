@@ -52,7 +52,6 @@ a+sb≡s[a+b] {suc a} {b} = cong suc a+sb≡s[a+b]
 
 +-comm : {a b : ℕ} → a + b ≡ b + a
 +-comm {a} {zero} = a+zero≡a
--- +-comm {a} {suc b} = trans (a+sb≡s[a+b] {a} {b}) (cong suc (+-comm {a} {b}))
 +-comm {a} {suc b} =
     begin
         a + (suc b)
@@ -62,13 +61,42 @@ a+sb≡s[a+b] {suc a} {b} = cong suc a+sb≡s[a+b]
         (suc b) + a
     ∎
 
+-- Versión alternativa sin razonamiento ecuacional.
+-- +-comm {a} {suc b} = trans (a+sb≡s[a+b] {a} {b}) (cong suc (+-comm {a} {b}))
+
 -- A.3) Demostrar que el producto distribuye sobre la suma (a izquierda).
 *-+-distrib-l : {a b c : ℕ} → (a + b) * c ≡ a * c + b * c
-*-+-distrib-l = {!!}
+*-+-distrib-l {zero} {b} {c} = refl
+*-+-distrib-l {suc a} {b} {c} =
+    begin
+        (suc a + b) * c
+    ≡⟨⟩
+        (suc (a + b)) * c
+    ≡⟨⟩
+        c + (a + b) * c
+    ≡⟨ cong (_+_ c) (*-+-distrib-l {a}) ⟩
+        c + (a * c + b * c)
+    ≡⟨ sym (+-assoc {c} {a * c} {b * c}) ⟩
+        (c + a * c) + b * c
+    ≡⟨⟩
+        suc a * c + b * c
+    ∎
 
 -- A.4) Demostrar que el producto es asociativo:
 *-assoc : {a b c : ℕ} → (a * b) * c ≡ a * (b * c)
-*-assoc = {!!}
+*-assoc {zero} {b} {c} = refl
+*-assoc {suc a} {b} {c} =
+    begin
+        (suc a * b) * c
+    ≡⟨⟩
+        (b + a * b) * c
+    ≡⟨ *-+-distrib-l {b} {a * b} {c} ⟩
+        b * c + a * b * c
+    ≡⟨ cong (_+_ (b * c)) (*-assoc {a}) ⟩
+        b * c + a * (b * c)
+    ≡⟨⟩
+        suc a * (b * c)
+    ∎
 
 -- A.5) Demostrar que el producto es conmutativo.
 -- Sugerencia: demostrar lemas auxiliares que prueben que:
@@ -80,7 +108,23 @@ a+sb≡s[a+b] {suc a} {b} = cong suc a+sb≡s[a+b]
 -- A.6) Demostrar que el producto distribuye sobre la suma (a derecha).
 -- Sugerencia: usar la conmutatividad y la distributividad a izquierda.
 *-+-distrib-r : {a b c : ℕ} → a * (b + c) ≡ a * b + a * c
-*-+-distrib-r = {!!}
+*-+-distrib-r {a} {b} {c} =
+    begin
+        a * (b + c)
+    ≡⟨ *-comm {a} ⟩
+        (b + c) * a
+    ≡⟨ *-+-distrib-l {b} {c} {a} ⟩
+        b * a + c * a
+    ≡⟨ cong (_+_ (b * a)) (*-comm {c}) ⟩
+        b * a + a * c
+    ≡⟨ +-comm {b * a} {a * c} ⟩
+        a * c + b * a
+    ≡⟨ cong (_+_ (a * c)) (*-comm {b}) ⟩
+        a * c + a * b
+    ≡⟨ +-comm {a * c} {a * b} ⟩
+        a * b + a * c
+    ∎
+
 
 --------------------------------------------------------------------------------
 
