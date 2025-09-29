@@ -203,6 +203,9 @@ zero-no-es-suc ()
 -- * Para el caso en el que n = suc n' y m = zero, usar el ítem B.2 y propiedades de la suma.
 -- * Para el caso en el que n = suc n' y m = suc m', recurrir a la hipótesis inductiva y propiedades de la suma.
 
+lema : {n m : ℕ} → suc n ≡ suc m → n ≡ m
+lema refl = refl
+
 ≤?-completa : {n m : ℕ} → n ≤ m → (n ≤? m) ≡ true
 ≤?-completa {zero} {m} n≤m = refl
 ≤?-completa {suc n} {zero} (k , k+n≡m) = ⊥-elim (zero-no-es-suc {k + n} (begin
@@ -212,12 +215,13 @@ zero-no-es-suc ()
     ≡⟨ k+n≡m ⟩
         zero
     ∎))
-≤?-completa {suc n} {suc m} n≤m with ≤?-completa {n} {m}
-... | p = {!  !}
-
--- k + suc n ≡ suc (k + n)
--- k + suc n ≡ zero
--- suc (k + n) ≡ zero
+≤?-completa {suc n} {suc m} (k , k+sn≡sm) = ≤?-completa {n} {m} (k , lema (begin
+        suc (k + n)
+    ≡⟨ sym (a+sb≡s[a+b] {k} {n}) ⟩
+        k + suc n
+    ≡⟨ k+sn≡sm ⟩
+        suc m
+    ∎))
 
 --------------------------------------------------------------------------------
 
