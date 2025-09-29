@@ -102,8 +102,40 @@ a+sb≡s[a+b] {suc a} {b} = cong suc a+sb≡s[a+b]
 -- Sugerencia: demostrar lemas auxiliares que prueben que:
 --   a * zero = zero
 --   a * suc b = a + a * b
+
+a*zero≡zero : {a : ℕ} → a * zero ≡ zero
+a*zero≡zero {zero} = refl
+a*zero≡zero {suc a} = a*zero≡zero {a}
+
+a*sb≡a+a*b : {a b : ℕ} → a * suc b ≡ a + a * b
+a*sb≡a+a*b {zero} {b} = refl
+a*sb≡a+a*b {suc a} {b} = cong suc (
+    begin
+        b + (a * suc b)
+    ≡⟨ cong (_+_ b) (a*sb≡a+a*b {a}) ⟩
+        b + (a + a * b)
+    ≡⟨ sym (+-assoc {b} {a} {(a * b)}) ⟩
+        (b + a) + a * b
+    ≡⟨ +-comm {b + a} {a * b} ⟩
+        a * b + (b + a)
+    ≡⟨ cong (_+_ (a * b)) (+-comm {b} {a}) ⟩
+        a * b + (a + b)
+    ≡⟨ +-comm {a * b} {a + b} ⟩
+        (a + b) + a * b
+    ≡⟨ +-assoc {a} {b} {(a * b)} ⟩
+        a + (b + a * b)
+    ∎)
+
 *-comm : {a b : ℕ} → a * b ≡ b * a
-*-comm = {!!}
+*-comm {a} {zero} = a*zero≡zero {a}
+*-comm {a} {suc b} =
+    begin
+        a * suc b
+    ≡⟨ a*sb≡a+a*b {a} ⟩
+        a + a * b
+    ≡⟨ cong (_+_ a) (*-comm {a}) ⟩
+        a + b * a
+    ∎
 
 -- A.6) Demostrar que el producto distribuye sobre la suma (a derecha).
 -- Sugerencia: usar la conmutatividad y la distributividad a izquierda.
@@ -148,12 +180,23 @@ suc n ≤? suc m = n ≤? m
 -- Sugerencia: seguir el esquema de inducción con el que se define la función _≤?_.
 
 ≤?-correcta : {n m : ℕ} → (n ≤? m) ≡ true → n ≤ m
-≤?-correcta = {!!}
+≤?-correcta {zero}  {m}     n≤m = m , (a+zero≡a {m})
+≤?-correcta {suc n} {suc m} n≤m with ≤?-correcta {n} {m} n≤m
+... | k , k+n≡m = k , trans (a+sb≡s[a+b] {k} {n}) (cong suc k+n≡m)
+
+-- ≤?-correcta {suc n} {suc m} n≤m with ≤?-correcta {n} {m} n≤m
+-- ... | k , k+n≡m = k , (begin
+--             k + suc n
+--         ≡⟨ a+sb≡s[a+b] {k} {n} ⟩
+--             suc (k + n)
+--         ≡⟨ cong suc k+n≡m ⟩
+--             suc m
+--     ∎)
 
 -- B.2) Demostrar que es imposible que el cero sea el sucesor de algún natural:
 
 zero-no-es-suc : {n : ℕ} → suc n ≡ zero → ⊥
-zero-no-es-suc = {!!}
+zero-no-es-suc ()
 
 -- B.3) Demostrar que la función es completa con respecto a su especificación.
 -- Sugerencia: seguir el esquema de inducción con el que se define la función _≤?_.
@@ -161,7 +204,20 @@ zero-no-es-suc = {!!}
 -- * Para el caso en el que n = suc n' y m = suc m', recurrir a la hipótesis inductiva y propiedades de la suma.
 
 ≤?-completa : {n m : ℕ} → n ≤ m → (n ≤? m) ≡ true
-≤?-completa = {!!}
+≤?-completa {zero} {m} n≤m = refl
+≤?-completa {suc n} {zero} (k , k+n≡m) = ⊥-elim (zero-no-es-suc {k + n} (begin
+        suc (k + n)
+    ≡⟨ sym (a+sb≡s[a+b] {k} {n}) ⟩
+        k + suc n
+    ≡⟨ k+n≡m ⟩
+        zero
+    ∎))
+≤?-completa {suc n} {suc m} n≤m with ≤?-completa {n} {m}
+... | p = {!  !}
+
+-- k + suc n ≡ suc (k + n)
+-- k + suc n ≡ zero
+-- suc (k + n) ≡ zero
 
 --------------------------------------------------------------------------------
 
