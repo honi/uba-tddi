@@ -13,7 +13,7 @@ open import Data.Nat.Properties
 open import Data.Product
        using (_,_; Σ-syntax)
 open import Relation.Binary.PropositionalEquality
-       using (_≡_; refl; cong)
+       using (_≡_; refl; sym; trans; cong)
 import Relation.Binary.PropositionalEquality as Eq
 open Eq.≡-Reasoning
 
@@ -63,15 +63,15 @@ refl ⁻¹ = refl
               → (p ⁻¹) ⁻¹ ≡ p
 ⁻¹-involutive {A} {x} {y} {p} =
     (p ⁻¹) ⁻¹
-  ≡⟨ {!!} ⟩
+  ≡⟨ sym ∙-refl-right ⟩
     ((p ⁻¹) ⁻¹) ∙ refl
-  ≡⟨ {!!} ⟩
+  ≡⟨ cong (((p ⁻¹) ⁻¹) ∙_) ((sym ∙-⁻¹-left)) ⟩
     ((p ⁻¹) ⁻¹) ∙ ((p ⁻¹) ∙ p)
-  ≡⟨ {!!} ⟩
+  ≡⟨ sym ∙-assoc ⟩
     (((p ⁻¹) ⁻¹) ∙ (p ⁻¹)) ∙ p
-  ≡⟨ {!!} ⟩
+  ≡⟨ cong ((_∙ p)) ∙-⁻¹-left ⟩
     refl ∙ p
-  ≡⟨ {!!} ⟩
+  ≡⟨ ∙-refl-left ⟩
     p
   ∎
 
