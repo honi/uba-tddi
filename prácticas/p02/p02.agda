@@ -248,13 +248,18 @@ n < m = suc n ≤ m
 
 -- C.1) Demostrar el principio de inducción completa, que permite recurrir a la hipótesis
 -- inductiva sobre cualquier número estrictamente menor.
+
+no-existe-n-menor-a-zero : (n : ℕ) → suc n < zero → ⊥
+no-existe-n-menor-a-zero n = {!   !}
+
 ind-completa : (C : ℕ → Set)
                (f : (n : ℕ)
                   → ((m : ℕ) → suc m < n → C m)
                   → C n)
                (n : ℕ)
                → C n
-ind-completa C f n = {!!}
+ind-completa C f zero    = f zero (λ m p → ⊥-elim (no-existe-n-menor-a-zero m p))
+ind-completa C f (suc n) = {!   !}
 
 --------------------------------------------------------------------------------
 
