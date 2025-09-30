@@ -169,7 +169,42 @@ refl ⁻¹ = refl
 
 ∙-⁻¹-comm : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ z}
              → (p ∙ q)⁻¹ ≡ (q ⁻¹) ∙ (p ⁻¹)
-∙-⁻¹-comm = {!!}
+∙-⁻¹-comm {A} {x} {y} {z} {p} {q} = (⁻¹-univ-left {A} {z} {x} {(q ⁻¹) ∙ (p ⁻¹)} {(p ∙ q)} (
+  begin
+    ((q ⁻¹) ∙ (p ⁻¹)) ∙ (p ∙ q)
+  ≡⟨ ∙-assoc ⟩
+    (q ⁻¹) ∙ ((p ⁻¹) ∙ (p ∙ q))
+  ≡⟨ cong ((q ⁻¹) ∙_) (∙-assoc ⁻¹) ⟩
+    (q ⁻¹) ∙ (((p ⁻¹) ∙ p) ∙ q)
+  ≡⟨ cong ((q ⁻¹) ∙_) (cong (_∙ q) (∙-⁻¹-left)) ⟩
+    (q ⁻¹) ∙ (refl ∙ q)
+  ≡⟨ cong ((q ⁻¹) ∙_) ∙-refl-left ⟩
+    (q ⁻¹) ∙ q
+  ≡⟨ ∙-⁻¹-left ⟩
+    refl
+  ∎)) ⁻¹
+
+-- Versión con nested begin. No es muy legible.
+-- ∙-⁻¹-comm {A} {x} {y} {z} {p} {q} = (⁻¹-univ-left {A} {z} {x} {(q ⁻¹) ∙ (p ⁻¹)} {(p ∙ q)} (
+--   begin
+--     ((q ⁻¹) ∙ (p ⁻¹)) ∙ (p ∙ q)
+--   ≡⟨ ∙-assoc ⟩
+--     (q ⁻¹) ∙ ((p ⁻¹) ∙ (p ∙ q))
+--   ≡⟨ cong ((q ⁻¹) ∙_) (
+--     begin
+--       (p ⁻¹) ∙ (p ∙ q)
+--     ≡⟨ ((∙-assoc ⁻¹)) ⟩
+--       ((p ⁻¹) ∙ p) ∙ q
+--     ≡⟨ cong (_∙ q) (∙-⁻¹-left) ⟩
+--       refl ∙ q
+--     ≡⟨ ∙-refl-left ⟩
+--       q
+--     ∎
+--   ) ⟩
+--     (q ⁻¹) ∙ q
+--   ≡⟨ ∙-⁻¹-left ⟩
+--     refl
+--   ∎)) ⁻¹
 
 ---- Parte B ----
 
