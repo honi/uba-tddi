@@ -129,12 +129,36 @@ refl ⁻¹ = refl
 ⁻¹-univ-left : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
              → p ∙ q ≡ refl
              → p ≡ q ⁻¹
-⁻¹-univ-left = {!!}
+⁻¹-univ-left {A} {x} {y} {z} {p} {q} p∙q=refl = begin
+    p
+  ≡⟨ (∙-refl-right ⁻¹) ⟩
+    p ∙ refl
+  ≡⟨ cong (p ∙_) (∙-⁻¹-right ⁻¹) ⟩
+    p ∙ (q ∙ (q ⁻¹))
+  ≡⟨ (∙-assoc ⁻¹) ⟩
+    (p ∙ q) ∙ (q ⁻¹)
+  ≡⟨ cong (_∙ (q ⁻¹)) p∙q=refl ⟩
+    refl ∙ (q ⁻¹)
+  ≡⟨ ∙-refl-left ⟩
+    q ⁻¹
+  ∎
 
 ⁻¹-univ-right : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
               → p ∙ q ≡ refl
               → q ≡ p ⁻¹
-⁻¹-univ-right = {!!}
+⁻¹-univ-right {A} {x} {y} {z} {p} {q} p∙q=refl = begin
+    q
+  ≡⟨ (∙-refl-left ⁻¹) ⟩
+    refl ∙ q
+  ≡⟨ cong (_∙ q) (∙-⁻¹-left ⁻¹) ⟩
+    ((p ⁻¹) ∙ p) ∙ q
+  ≡⟨ ∙-assoc ⟩
+    (p ⁻¹) ∙ (p ∙ q)
+  ≡⟨ cong ((p ⁻¹) ∙_) p∙q=refl ⟩
+    (p ⁻¹) ∙ refl
+  ≡⟨ ∙-refl-right ⟩
+    p ⁻¹
+  ∎
 
 -- A.7) Usando las propiedades anteriores y sin hacer pattern matching sobre los caminos,
 -- demostrar la siguiente propiedad de conmutación entre la composición de caminos y
