@@ -127,10 +127,10 @@ refl ⁻¹ = refl
 -- demostrar las siguientes propiedades, que caracterizan a la inversa a izquierda y
 -- a derecha:
 
-⁻¹-univ-left : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
+⁻¹-univ-left : {A : Set} {x y : A} {p : x ≡ y} {q : y ≡ x}
              → p ∙ q ≡ refl
              → p ≡ q ⁻¹
-⁻¹-univ-left {A} {x} {y} {z} {p} {q} p∙q=refl =
+⁻¹-univ-left {A} {x} {y} {p} {q} p∙q=refl =
   begin
     p
   ≡⟨ (∙-refl-right ⁻¹) ⟩
@@ -145,10 +145,10 @@ refl ⁻¹ = refl
     q ⁻¹
   ∎
 
-⁻¹-univ-right : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
+⁻¹-univ-right : {A : Set} {x y : A} {p : x ≡ y} {q : y ≡ x}
               → p ∙ q ≡ refl
               → q ≡ p ⁻¹
-⁻¹-univ-right {A} {x} {y} {z} {p} {q} p∙q=refl =
+⁻¹-univ-right {A} {x} {y} {p} {q} p∙q=refl =
   begin
     q
   ≡⟨ (∙-refl-left ⁻¹) ⟩
