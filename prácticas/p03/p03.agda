@@ -84,16 +84,43 @@ refl ⁻¹ = refl
 ∙-cancel-left {A} {x} {y} {z} {p} {q} {q'} pq≡pq' =
   begin
     q
-  ≡⟨ {!!} ⟩
+  ≡⟨ ∙-refl-left ⁻¹ ⟩
+    refl ∙ q
+  ≡⟨ cong (_∙ q) (∙-⁻¹-left ⁻¹) ⟩
     ((p ⁻¹) ∙ p) ∙ q      -- (ayuda)
-  ≡⟨ {!!} ⟩
+  ≡⟨ ∙-assoc ⟩
+    (p ⁻¹) ∙ (p ∙ q)
+  ≡⟨ cong ((p ⁻¹) ∙_) pq≡pq' ⟩
+    (p ⁻¹) ∙ (p ∙ q')
+  ≡⟨ ∙-assoc ⁻¹ ⟩
+    ((p ⁻¹) ∙ p) ∙ q'
+  ≡⟨ cong (_∙ q') (∙-⁻¹-left) ⟩
+    refl ∙ q'
+  ≡⟨ ∙-refl-left ⟩
     q'
   ∎
 
 ∙-cancel-right : {A : Set} {x y z : A} {p p' : x ≡ y} {q : y ≡ z}
                → p ∙ q ≡ p' ∙ q
                → p ≡ p'
-∙-cancel-right = {!!}
+∙-cancel-right {A} {x} {y} {z} {p} {p'} {q} pq≡p'q =
+  begin
+    p
+  ≡⟨ ∙-refl-right ⁻¹ ⟩
+    p ∙ refl
+  ≡⟨ cong (p ∙_) (∙-⁻¹-right ⁻¹) ⟩
+    p ∙ (q ∙ (q ⁻¹))
+  ≡⟨ (∙-assoc ⁻¹) ⟩
+    (p ∙ q) ∙ (q ⁻¹)
+  ≡⟨ cong (_∙ (q ⁻¹)) pq≡p'q ⟩
+    (p' ∙ q) ∙ (q ⁻¹)
+  ≡⟨ ∙-assoc ⟩
+    p' ∙ (q ∙ (q ⁻¹))
+  ≡⟨ cong (p' ∙_) (∙-⁻¹-right) ⟩
+    p' ∙ refl
+  ≡⟨ ∙-refl-right ⟩
+    p'
+  ∎
 
 -- A.6) Usando las propiedades anteriores y sin hacer pattern matching sobre los caminos,
 -- demostrar las siguientes propiedades, que caracterizan a la inversa a izquierda y
