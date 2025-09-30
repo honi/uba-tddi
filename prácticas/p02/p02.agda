@@ -272,19 +272,19 @@ ind≡ : {A : Set}
        {C : (a b : A) → a ≡ b → Set}
      → ((a : A) → C a a refl)
      → (a b : A) (p : a ≡ b) → C a b p
-ind≡ = {!!}
+ind≡ {A} {C} f a a refl = f a
 
 -- D.2) Demostrar nuevamente la simetría de la igualdad, usando ind≡:
 
 sym' : {A : Set} {a b : A} → a ≡ b → b ≡ a
-sym' = {!!}
+sym' {A} {a} {b} = ind≡ {A} {λ a b p → b ≡ a} (λ a → refl) a b
 
 -- D.3) Demostrar nuevamente la transitividad de la igualdad, usando ind≡:
 
 trans' : {A : Set} {a b c : A} → a ≡ b → b ≡ c → a ≡ c
-trans' = {!!}
+trans' {A} {a} {b} {c} = ind≡ {A} {λ a b p → b ≡ c → a ≡ c} (λ a q → q) a b
 
 -- D.4) Demostrar nuevamente que la igualdad es una congruencia, usando ind≡:
 
 cong' : {A B : Set} {a b : A} → (f : A → B) → a ≡ b → f a ≡ f b
-cong' = {!!}
+cong' {A} {B} {a} {b} f = ind≡ {A} {λ a b p → f a ≡ f b} (λ a → refl) a b
