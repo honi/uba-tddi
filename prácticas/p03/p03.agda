@@ -62,6 +62,7 @@ refl ⁻¹ = refl
 ⁻¹-involutive : {A : Set} {x y : A} {p : x ≡ y}
               → (p ⁻¹) ⁻¹ ≡ p
 ⁻¹-involutive {A} {x} {y} {p} =
+  begin
     (p ⁻¹) ⁻¹
   ≡⟨ ∙-refl-right ⁻¹ ⟩
     ((p ⁻¹) ⁻¹) ∙ refl
@@ -129,7 +130,8 @@ refl ⁻¹ = refl
 ⁻¹-univ-left : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
              → p ∙ q ≡ refl
              → p ≡ q ⁻¹
-⁻¹-univ-left {A} {x} {y} {z} {p} {q} p∙q=refl = begin
+⁻¹-univ-left {A} {x} {y} {z} {p} {q} p∙q=refl =
+  begin
     p
   ≡⟨ (∙-refl-right ⁻¹) ⟩
     p ∙ refl
@@ -146,7 +148,8 @@ refl ⁻¹ = refl
 ⁻¹-univ-right : {A : Set} {x y z : A} {p : x ≡ y} {q : y ≡ x}
               → p ∙ q ≡ refl
               → q ≡ p ⁻¹
-⁻¹-univ-right {A} {x} {y} {z} {p} {q} p∙q=refl = begin
+⁻¹-univ-right {A} {x} {y} {z} {p} {q} p∙q=refl =
+  begin
     q
   ≡⟨ (∙-refl-left ⁻¹) ⟩
     refl ∙ q
