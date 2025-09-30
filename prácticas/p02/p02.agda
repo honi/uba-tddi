@@ -37,6 +37,11 @@ suc a * b = b + a * b
 +-assoc {zero} {suc b} {c} = refl
 +-assoc {suc a} {b} {c} = cong suc (+-assoc {a})
 
+-- Con rewrite
++-assoc' : {a b c : ℕ} → (a + b) + c ≡ a + (b + c)
++-assoc' {zero} {b} {c}                               = refl
++-assoc' {suc a} {b} {c} rewrite +-assoc' {a} {b} {c} = refl
+
 -- A.2) Demostrar que la suma es conmutativa.
 -- Sugerencia: demostrar lemas auxiliares que prueben que:
 --   a + zero = a
