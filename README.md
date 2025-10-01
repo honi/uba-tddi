@@ -11,6 +11,7 @@ Ciencias de la Computación - FCEN - UBA\
   - [Práctica 2](prácticas/p02): Naturales e igualdad
   - [Práctica 3](prácticas/p03): Estructura de ω-grupoide y transporte
   - [Práctica 4](prácticas/p04): Equivalencias de tipos y recursión
+  - [Práctica 5](prácticas/p05): Programas correctos por construcción
 
 - Bibliografía
 
