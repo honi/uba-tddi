@@ -10,6 +10,7 @@ Ciencias de la Computación - FCEN - UBA\
   - [Práctica 1](prácticas/p01): Productos y sumas
   - [Práctica 2](prácticas/p02): Naturales e igualdad
   - [Práctica 3](prácticas/p03): Estructura de ω-grupoide y transporte
+  - [Práctica 4](prácticas/p04): Equivalencias de tipos y recursión
 
 - Bibliografía
 
