@@ -296,12 +296,12 @@ data Fin : (n : ℕ) → Set where
   finZero : Fin zero
   -- Si x es un habitante de Fin n,
   -- entonces finSuc x es un habitante de Fin (suc n).
-  finSucc  : {n : ℕ} → Fin n → Fin (suc n)
+  finSuc  : {n : ℕ} → Fin n → Fin (suc n)
 
 -- D.1) Definir la suma:
 sumaFin : {n m : ℕ} → Fin n → Fin m → Fin (n + m)
 sumaFin finZero     y = {!!}
-sumaFin (finSucc x) y = {!!}
+sumaFin (finSuc x) y  = {!!}
 
 -- D.2) Demostrar que la suma es conmutativa:
 sumaFin-comm : {n m : ℕ} (x : Fin n) (y : Fin m) → sumaFin x y ≡ transport Fin (+-comm m n) (sumaFin y x)
